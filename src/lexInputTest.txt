@@ -1,0 +1,9 @@
+math = (length^2+ width^2) * 2 ` ~
+
+var t = 5;
+        X    =      a  - 5 * ((b ^ C) * d);
+
+(1.6 + sum ) /     total
+
+case '1':
+    break;
