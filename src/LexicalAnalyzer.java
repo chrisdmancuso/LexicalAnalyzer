@@ -70,18 +70,18 @@ public class LexicalAnalyzer {
     public static void main(String[] args) {
 
         try {
-            //READ FILE BY LINE
+            //Read file by line
             file = new File(fileName);
             fileReader1 = new FileReader(file);
             bufferedReader1 = new BufferedReader(fileReader1);
-            //READ FILE BY CHARACTER
+            //Read file by character
             fileReader2 = new FileReader(file);
             bufferedReader2 = new BufferedReader(fileReader2);
 
-            //OUTPUT TOKENS AND LEXEMES FOR EACH LINE
-            //IF READER2 HAS REACHED THE END OF THE LINE IT
-            //READS THE NEXT LINE FROM READER1 AND THEN CONTINUES
-            //WITH READER2
+            //Output tokens and lexemes for each line.
+            //If reader2 has reached the end of the line it
+            //reads the next line from reader1 and then continues
+            //with reader2
             System.out.println("Chris Mancuso"
                     + ". \nCSCI 4200-DB, Fall 2018, Lexical Analyzer");
             System.out.println("********************************************************************************");
@@ -102,15 +102,16 @@ public class LexicalAnalyzer {
             System.out.println("Lexical analysis of the program is complete!");
 
         } catch (Exception e) {
-            System.out.println("ERROR - cannot open the lexical text file"
-                    + "\n Make sure the file is placed in the correct directory"
-                    + "\n and has the correct name, lexInput.txt");
+            System.out.println("""
+                    ERROR - cannot open the lexical text file
+                     Make sure the file is placed in the correct directory
+                     and has the correct name, lexInputTest.txt""");
             System.out.println();
             e.printStackTrace();
         }
     }
 
-    //GET NEXT CHARACTER IN FILE AND DETERMINE CLASS
+    //Get next character in file and determine character class
     public static void getChar() {
         try {
             if ((nextChar = bufferedReader2.read()) != -1) {
@@ -130,7 +131,7 @@ public class LexicalAnalyzer {
         }
     }
 
-    //ADD CHARACTER TO LEXEME AND LINECOMPARE
+    //Add character to lexeme and the lineCompare()
     public static void addChar() {
         if(lineCompare == null)
             lineCompare = String.valueOf((char)nextChar);
@@ -143,7 +144,7 @@ public class LexicalAnalyzer {
         }
     }
 
-    //FIND NEXT CHARACTER THAT ISN'T WHITESPACE
+    //Find next non-white space character
     public static void getNonBlank() {
         while (Character.isWhitespace(nextChar)) {
             if(lineCompare == null)
@@ -154,159 +155,131 @@ public class LexicalAnalyzer {
         }
     }
 
-    // CONTAINS TOKENS FOR NONLETTERS AND NONDIGITS
-    public static String lookup(char ch) {
+    // Switch statements for tokens
+    public static void lookup(char ch) {
         switch (ch) {
-            case '(':
+            case '(' -> {
                 addChar();
                 nextToken = LEFT_PAREN;
-                break;
-
-            case ')':
+            }
+            case ')' -> {
                 addChar();
                 nextToken = RIGHT_PAREN;
-                break;
-
-            case '=':
+            }
+            case '=' -> {
                 addChar();
                 nextToken = ASSIGN_OP;
-                break;
-
-            case '+':
+            }
+            case '+' -> {
                 addChar();
                 nextToken = ADD_OP;
-                break;
-
-            case '-':
+            }
+            case '-' -> {
                 addChar();
                 nextToken = SUB_OP;
-                break;
-
-            case '*':
+            }
+            case '*' -> {
                 addChar();
                 nextToken = MULT_OP;
-                break;
-
-            case '/':
+            }
+            case '/' -> {
                 addChar();
                 nextToken = DIV_OP;
-                break;
-
-            case '^':
+            }
+            case '^' -> {
                 addChar();
                 nextToken = EXP_OP;
-                break;
-
-            case '\'':
+            }
+            case '\'' -> {
                 addChar();
                 nextToken = APOSTROPHE;
-                break;
-
-            case ':':
+            }
+            case ':' -> {
                 addChar();
                 nextToken = COLON;
-                break;
-
-            case ';':
+            }
+            case ';' -> {
                 addChar();
                 nextToken = SEMI_COLON;
-                break;
-
-            case '[':
+            }
+            case '[' -> {
                 addChar();
                 nextToken = LEFT_BRACKET;
-                break;
-
-            case ']':
+            }
+            case ']' -> {
                 addChar();
                 nextToken = RIGHT_BRAKCET;
-                break;
-
-            case '{':
+            }
+            case '{' -> {
                 addChar();
                 nextToken = LEFT_CURLY_BRACKET;
-                break;
-
-            case '}':
+            }
+            case '}' -> {
                 addChar();
                 nextToken = RIGHT_CURLY_BRACKET;
-                break;
-
-            case '.':
+            }
+            case '.' -> {
                 addChar();
                 nextToken = PERIOD;
-                break;
-
-            case '\\':
+            }
+            case '\\' -> {
                 addChar();
                 nextToken = BACKSLASH;
-                break;
-
-            case '_':
+            }
+            case '_' -> {
                 addChar();
                 nextToken = UNDERSCORE;
-                break;
-
-            case '"':
+            }
+            case '"' -> {
                 addChar();
                 nextToken = QUOTATIONS;
-                break;
-
-            case '|':
+            }
+            case '|' -> {
                 addChar();
                 nextToken = VERTICAL_BAR;
-                break;
-
-            case ',':
+            }
+            case ',' -> {
                 addChar();
                 nextToken = COMMA;
-                break;
-
-            case '!':
+            }
+            case '!' -> {
                 addChar();
                 nextToken = EXCLAMATION;
-                break;
-
-            case '<':
+            }
+            case '<' -> {
                 addChar();
                 nextToken = LESS_THAN;
-                break;
-
-            case '>':
+            }
+            case '>' -> {
                 addChar();
                 nextToken = GREATER_THAN;
-                break;
-
-            case '`':
+            }
+            case '`' -> {
                 addChar();
                 nextToken = BACKTICK;
-                break;
-
-            case '~':
+            }
+            case '~' -> {
                 addChar();
                 nextToken = TILDE;
-                break;
-
-            case '%':
+            }
+            case '%' -> {
                 addChar();
                 nextToken = PERCENT;
-                break;
-
-            default:
+            }
+            default -> {
                 addChar();
                 nextToken = UNKNOWN;
-                break;
+            }
         }
-        return nextToken;
     }
 
-    //CREATES LEXEME AND ITS MATCHING TOKEN
+    //Generate lexeme and matching token
     public static void lex() {
         lexLen = 0;
         lexeme = new char[MAX_LEXEME_LENGTH];
         getNonBlank();
         switch (charClass) {
-            case LETTER:
+            case LETTER -> {
                 addChar();
                 getChar();
                 while (charClass == LETTER || charClass == DIGIT) {
@@ -317,9 +290,8 @@ public class LexicalAnalyzer {
                     nextToken = ERROR;
                 else
                     nextToken = IDENT;
-                break;
-
-            case DIGIT:
+            }
+            case DIGIT -> {
                 addChar();
                 getChar();
                 while (charClass == DIGIT) {
@@ -330,12 +302,11 @@ public class LexicalAnalyzer {
                     nextToken = ERROR;
                 else
                     nextToken = INT_LIT;
-                break;
-
-            case UNKNOWN:
+            }
+            case UNKNOWN -> {
                 lookup((char) nextChar);
                 getChar();
-                break;
+            }
         }
         System.out.printf("%-30.113s %-30.113s%n","Next token is: " + nextToken, "Next lexeme is " + new String(lexeme));
 
